@@ -1,0 +1,34 @@
+#version ( DONT CHANGE ) 
+version: 1
+
+Cooldown:
+  - 'shop': 15
+  
+Teleport:
+ Cooldown: 5
+ message: "%prefix% &cTeleporting in %cooldown%&7"
+  
+Format:
+ colorCoding: "&a%time%&7(&6%shortname%&7) "
+ message: "%prefix% &cSorry, please wait %cooldown%&7 &cto use that command again!"
+ simplicity: 1
+ 
+Time:
+ seconds:
+  short_name: "s"
+  seconds: 1
+ minutes:
+  short_name: "m"
+  seconds: 60
+ hours:
+  short_name: "hr"
+  seconds: 3600
+ days:
+  short_name: "d"
+  seconds: 86400
+ weeks:
+  short_name: "w"
+  seconds: 604800
+ months:
+  short_name: "mm"
+  seconds: 2419200

@@ -1,0 +1,9 @@
+#version ( DONT CHANGE ) 
+version: 1
+
+Messages:
+ PREFIX: "&7[&cBase&7]"
+ ERROR: "%prefix% &cSomething went wrong!"
+ INVALID_SYNTEX: "%prefix% &cInvalid Syntex!"
+ INAVLID_PERMISSION: "%prefix% &cyou dont have permission for that!"
+ INAVLID_ENTITY: "%prefix% &cPlayers only!"

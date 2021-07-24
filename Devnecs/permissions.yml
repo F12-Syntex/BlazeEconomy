@@ -1,0 +1,7 @@
+#version ( DONT CHANGE ) 
+version: 1
+
+Permissions:
+ default: "base.command.help"
+ admin: "base.admin"
+ timer_bypass: "base.timer.bypass"
