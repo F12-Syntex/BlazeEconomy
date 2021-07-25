@@ -4,7 +4,7 @@ package com.devnecs.commands;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.devnecs.main.Base;
+import com.devnecs.main.Blaze;
 
 public class Reload extends SubCommand {
 
@@ -12,8 +12,8 @@ public class Reload extends SubCommand {
     public void onCommand(Player player, String[] args) {
     
     	if(args.length == 1) {
-        	Base.getInstance().reload();
-        	Base.getInstance().configManager.messages.send(player, "plugin_reload");
+        	Blaze.getInstance().reload();
+        	Blaze.getInstance().configManager.messages.send(player, "plugin_reload");
         	return;
     	}
     
@@ -37,7 +37,7 @@ public class Reload extends SubCommand {
 
 	@Override
 	public String permission() {
-		return Base.getInstance().configManager.permissions.reload;	
+		return Blaze.getInstance().configManager.permissions.reload;	
 	}
 	
 	@Override

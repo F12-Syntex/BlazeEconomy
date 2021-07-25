@@ -10,7 +10,7 @@ import com.devnecs.config.Config;
 import com.devnecs.configs.gui.ConfigGUI;
 import com.devnecs.configs.gui.ConfigSpecific;
 import com.devnecs.configs.gui.ConfigsView;
-import com.devnecs.main.Base;
+import com.devnecs.main.Blaze;
 import com.devnecs.utils.MessageUtils;
 
 public class Configure extends SubCommand {
@@ -24,7 +24,7 @@ public class Configure extends SubCommand {
         	return;
     	}
     	
-    	ArrayList<Config> config = Base.getInstance().configManager.config;
+    	ArrayList<Config> config = Blaze.getInstance().configManager.config;
     	
     	for(Config i : config) {
     		if(i.getName().equalsIgnoreCase(args[1])) {
@@ -35,7 +35,7 @@ public class Configure extends SubCommand {
     		}
     	}
     	
-    	MessageUtils.sendRawMessage(player, Base.getInstance().configManager.messages.invalid_configure_command.replace("%config%", args[1]));
+    	MessageUtils.sendRawMessage(player, Blaze.getInstance().configManager.messages.invalid_configure_command.replace("%config%", args[1]));
     	
     }
 
@@ -57,14 +57,14 @@ public class Configure extends SubCommand {
 
 	@Override
 	public String permission() {
-		return  Base.getInstance().configManager.permissions.configure;
+		return  Blaze.getInstance().configManager.permissions.configure;
 	}
 
 	@Override
 	public AutoComplete autoComplete(CommandSender sender) {
 		AutoComplete tabCompleter = new AutoComplete();
 		
-		for(Config i : Base.getInstance().configManager.config) {
+		for(Config i : Blaze.getInstance().configManager.config) {
 			tabCompleter.createEntry(i.getName());
 		}
 		

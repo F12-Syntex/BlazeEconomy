@@ -12,7 +12,7 @@ import com.devnecs.utils.MessageUtils;
 
 public class Messages extends Config{
 
-	public String prefix = "&c[&6CombatPets&c]";
+	public String prefix = "&c[&6BlazeEconomy&c]";
 	public String error = "%prefix% sorry an error has accured!";;
 	public String invalid_syntax = "%prefix% &cInvalid syntax";
 	public String invalid_permission = "%prefix% &cYou cant do that!";
@@ -20,7 +20,6 @@ public class Messages extends Config{
 	public String invalid_help_command = "%prefix% &c%command% is not a command!";
 	public String invalid_configure_command = "%prefix% &c%config% is not a valid config!";
 	public List<String> help_format = ComponentBuilder.createLore("%prefix% &b%command%&7: &c%description%", "%prefix% &bpermissions&7: &c%permission%");
-
 	
 	//public String insufficient_balance = "%prefix% &6Sorry you dont have enough money!";
 	//public String purchase_successful = "%prefix% &6Your pet has been added to your battle inventory!";
@@ -45,8 +44,8 @@ public class Messages extends Config{
 		
 		//plugin_reload
 		this.updateMessages("plugin_reload", "%prefix% &creloaded!");
+		this.updateMessages("user_balance", "%prefix% &cyou have &a%balance%&c$");
 
-		
 		
 		this.items.add(new ConfigItem("Messages.contents", messages));
 		
@@ -91,6 +90,21 @@ public class Messages extends Config{
 	
 	
 	public void send(Player player, String key) {
+		MessageUtils.sendRawMessage(player, this.getMessage(key));
+	}
+	
+	public void send(Player player, String key, String find, String replace) {
+		MessageUtils.sendRawMessage(player, this.getMessage(key).replace(find, replace));
+	}
+	
+	public void send(Player player, String key, Map<String, String> replace) {
+		
+		String message = this.getMessage(key);
+		
+		for(String parent : replace.keySet()) {
+			message = message.replace(parent, replace.get(key));
+		}
+		
 		MessageUtils.sendRawMessage(player, this.getMessage(key));
 	}
 	

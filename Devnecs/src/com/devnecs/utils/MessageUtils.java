@@ -8,7 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import com.devnecs.main.Base;
+import com.devnecs.main.Blaze;
 
 public class MessageUtils {
 
@@ -46,11 +46,11 @@ public class MessageUtils {
 	}
 	
 	public static void inform(Player player, String s) {
-		player.sendMessage(Base.getInstance().configManager.messages.prefix + MessageUtils.translateAlternateColorCodes(s));
+		player.sendMessage(Blaze.getInstance().configManager.messages.prefix + MessageUtils.translateAlternateColorCodes(s));
 	}
 	
 	public static void sendMessage(Player player, String s) {
-		player.sendMessage(Base.getInstance().configManager.messages.prefix + " " + MessageUtils.translateAlternateColorCodes(s));
+		player.sendMessage(Blaze.getInstance().configManager.messages.prefix + " " + MessageUtils.translateAlternateColorCodes(s));
 	}
 
 	public static void sendConsoleMessage(String msg){
@@ -61,8 +61,8 @@ public class MessageUtils {
 		System.out.println(MessageUtils.translateAlternateColorCodes(msg[i]));
 	}
 	public static void sendHelp(Player player) {
-		 Base.getInstance().CommandManager.getCommands().forEach(i -> {
-			 MessageUtils.sendRawMessage(player,Base.getInstance().configManager.messages.prefix + " " + "&6• &c" + i.name() + "&7 : &b" + i.info());
+		 Blaze.getInstance().CommandManager.getCommands().forEach(i -> {
+			 MessageUtils.sendRawMessage(player,Blaze.getInstance().configManager.messages.prefix + " " + "&6• &c" + i.name() + "&7 : &b" + i.info());
 		 });
 	}
 }

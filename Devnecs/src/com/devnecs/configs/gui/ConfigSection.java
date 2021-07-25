@@ -18,7 +18,7 @@ import com.devnecs.GUI.GenerateItem;
 import com.devnecs.GUI.PagedItem;
 import com.devnecs.GUI.SpecialItem;
 import com.devnecs.config.Config;
-import com.devnecs.main.Base;
+import com.devnecs.main.Blaze;
 import com.devnecs.utils.Communication;
 import com.devnecs.utils.ComponentBuilder;
 import com.devnecs.utils.Input;
@@ -50,7 +50,7 @@ public class ConfigSection extends ConfigGUI {
 	@Override
 	public String permission() {
 		// TODO Auto-generated method stub
-		return Base.getInstance().configManager.permissions.basic;
+		return Blaze.getInstance().configManager.permissions.basic;
 	}
 
 	@Override
@@ -102,12 +102,12 @@ public class ConfigSection extends ConfigGUI {
 		
 		this.configSection.getKeys(false).forEach(i -> {
 
-			ItemStack section = new ItemStack(Material.valueOf(Base.getInstance().configManager.configs.Sections));
-			ItemStack ints = new ItemStack(Material.valueOf(Base.getInstance().configManager.configs.Numbers));
-			ItemStack text = new ItemStack(Material.valueOf(Base.getInstance().configManager.configs.Text));
-			ItemStack booleanON = new ItemStack(Material.valueOf(Base.getInstance().configManager.configs.BooleanON));
-			ItemStack booleanOFF = new ItemStack(Material.valueOf(Base.getInstance().configManager.configs.BooleanOFF));
-			ItemStack lists = new ItemStack(Material.valueOf(Base.getInstance().configManager.configs.Lists));
+			ItemStack section = new ItemStack(Material.valueOf(Blaze.getInstance().configManager.configs.Sections));
+			ItemStack ints = new ItemStack(Material.valueOf(Blaze.getInstance().configManager.configs.Numbers));
+			ItemStack text = new ItemStack(Material.valueOf(Blaze.getInstance().configManager.configs.Text));
+			ItemStack booleanON = new ItemStack(Material.valueOf(Blaze.getInstance().configManager.configs.BooleanON));
+			ItemStack booleanOFF = new ItemStack(Material.valueOf(Blaze.getInstance().configManager.configs.BooleanOFF));
+			ItemStack lists = new ItemStack(Material.valueOf(Blaze.getInstance().configManager.configs.Lists));
 			
 			
 			if(this.configSection.isConfigurationSection(i)) {
@@ -157,9 +157,9 @@ public class ConfigSection extends ConfigGUI {
 								config.getConfiguration().set(configSection.getCurrentPath() + "." + i, o);
 								config.save();
 								
-								Base.getInstance().reload();
+								Blaze.getInstance().reload();
 								
-								Bukkit.getScheduler().callSyncMethod(Base.getInstance(), new Callable<Object>() {
+								Bukkit.getScheduler().callSyncMethod(Blaze.getInstance(), new Callable<Object>() {
 									@Override
 									public Object call() throws Exception {
 										gui.open();	 
@@ -183,7 +183,7 @@ public class ConfigSection extends ConfigGUI {
 							player.closeInventory();
 							config.getConfiguration().set(configSection.getCurrentPath() + "." + i, false);
 							config.save();
-							Base.getInstance().reload();
+							Blaze.getInstance().reload();
 							back.setFront(this);
 							ConfigGUI gui = new ConfigSection(player, configSection, this, front, config);
 							
@@ -195,7 +195,7 @@ public class ConfigSection extends ConfigGUI {
 							player.closeInventory();
 							config.getConfiguration().set(configSection.getCurrentPath() + "." + i, true);
 							config.save();
-							Base.getInstance().reload();
+							Blaze.getInstance().reload();
 							back.setFront(this);
 							ConfigGUI gui = new ConfigSection(player, configSection, this, front, config);
 							
@@ -222,7 +222,7 @@ public class ConfigSection extends ConfigGUI {
 								
 								if(!Numbers.isNumber(o)) {
 									MessageUtils.inform(player, " &cThat's not a number!");
-									Bukkit.getScheduler().callSyncMethod(Base.getInstance(), new Callable<Object>() {
+									Bukkit.getScheduler().callSyncMethod(Blaze.getInstance(), new Callable<Object>() {
 										@Override
 										public Object call() throws Exception {
 											gui.open();
@@ -235,8 +235,8 @@ public class ConfigSection extends ConfigGUI {
 								config.getConfiguration().set(configSection.getCurrentPath() + "." + i, Integer.parseInt(o));
 								config.save();
 								
-								Base.getInstance().reload();
-								Bukkit.getScheduler().callSyncMethod(Base.getInstance(), new Callable<Object>() {
+								Blaze.getInstance().reload();
+								Bukkit.getScheduler().callSyncMethod(Blaze.getInstance(), new Callable<Object>() {
 									@Override
 									public Object call() throws Exception {
 										gui.open();	 

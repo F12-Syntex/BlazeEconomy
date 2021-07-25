@@ -7,7 +7,7 @@ import java.util.TimerTask;
 
 import org.bukkit.entity.Player;
 
-import com.devnecs.main.Base;
+import com.devnecs.main.Blaze;
 
 public class Communication {
 	
@@ -22,7 +22,7 @@ public class Communication {
 			@Override
 			public void run() {
 				if(players.containsKey(player)) {
-					MessageUtils.sendRawMessage(player, Base.getInstance().configManager.messages.prefix + " &cOperation timed out!");
+					MessageUtils.sendRawMessage(player, Blaze.getInstance().configManager.messages.prefix + " &cOperation timed out!");
 					players.remove(player);	
 				}
 			}

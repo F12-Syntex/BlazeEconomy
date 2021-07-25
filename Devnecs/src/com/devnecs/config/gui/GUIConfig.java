@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import com.devnecs.GUI.GenericConfigurableInterface;
 import com.devnecs.config.Config;
 import com.devnecs.config.ConfigItem;
-import com.devnecs.main.Base;
+import com.devnecs.main.Blaze;
 
 public abstract class GUIConfig extends Config{
 
@@ -56,15 +56,15 @@ public abstract class GUIConfig extends Config{
 				boolean success = this.getConfig().renameTo(backup);
 				
 				if(success) {
-					Base.Log("&a" + this.name + ".yml has been created!");	
+					Blaze.Log("&a" + this.name + ".yml has been created!");	
 				}else {
-					Base.Log("&cCouldnt create!");
+					Blaze.Log("&cCouldnt create!");
 				}
 			
 				return tempConfig;
 			
 		}else if(!backups.exists()) {
-			Base.Log("&cCouldnt create folder!");
+			Blaze.Log("&cCouldnt create folder!");
 		}
 		
 		return null;

@@ -21,7 +21,7 @@ import com.devnecs.GUI.GenerateItem;
 import com.devnecs.GUI.PagedItem;
 import com.devnecs.GUI.SpecialItem;
 import com.devnecs.config.Config;
-import com.devnecs.main.Base;
+import com.devnecs.main.Blaze;
 import com.devnecs.utils.MessageUtils;
 
 public abstract class ConfigGUI implements Listener{
@@ -41,7 +41,7 @@ public abstract class ConfigGUI implements Listener{
 	public ConfigGUI(Player player, ConfigGUI back, ConfigGUI front, Config config) {
 		this.page = 1;
 		this.player = player;
-		Base.instance.getServer().getPluginManager().registerEvents(this, Base.instance);
+		Blaze.instance.getServer().getPluginManager().registerEvents(this, Blaze.instance);
 		this.inv = Bukkit.createInventory(player, size(), name());
 		
 		if(config != null) {
@@ -61,7 +61,7 @@ public abstract class ConfigGUI implements Listener{
 	public void onOpen(InventoryOpenEvent e) {
 		if(e.getPlayer().getUniqueId() != this.player.getUniqueId()) return;
 		if(!e.getPlayer().hasPermission(permission())) {
-			MessageUtils.sendRawMessage(player, Base.getInstance().configManager.messages.invalid_permission);
+			MessageUtils.sendRawMessage(player, Blaze.getInstance().configManager.messages.invalid_permission);
 			e.setCancelled(true);
 			return;
 		}
@@ -137,7 +137,7 @@ public abstract class ConfigGUI implements Listener{
 	}
 
 	public void openWithNewRegister() {
-		Base.instance.getServer().getPluginManager().registerEvents(this, Base.instance);
+		Blaze.instance.getServer().getPluginManager().registerEvents(this, Blaze.instance);
 		player.getWorld().playSound(player.getLocation(), sound(), soundLevel(), soundLevel());
 		this.refresh();
 		player.openInventory(inv);
@@ -147,7 +147,7 @@ public abstract class ConfigGUI implements Listener{
 	
 	public void refresh() {
 		
-		Bukkit.getServer().getScheduler().runTask(Base.getInstance(), new Runnable() {
+		Bukkit.getServer().getScheduler().runTask(Blaze.getInstance(), new Runnable() {
 		    public void run() {
 
 				inv.clear();

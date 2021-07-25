@@ -13,7 +13,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import com.devnecs.config.Messages;
-import com.devnecs.main.Base;
+import com.devnecs.main.Blaze;
 import com.devnecs.utils.MessageUtils;
 
 public abstract class GUI implements Listener{
@@ -24,9 +24,9 @@ public abstract class GUI implements Listener{
 	
 	public GUI(Player player) {
 		this.player = player;
-		Base.instance.getServer().getPluginManager().registerEvents(this, Base.instance);
+		Blaze.instance.getServer().getPluginManager().registerEvents(this, Blaze.instance);
 		inv = Bukkit.createInventory(this.player, size(), name());
-		this.messages = Base.getInstance().configManager.messages;
+		this.messages = Blaze.getInstance().configManager.messages;
 	}
 	
 	@EventHandler()

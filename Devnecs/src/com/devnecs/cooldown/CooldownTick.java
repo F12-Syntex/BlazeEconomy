@@ -5,14 +5,14 @@ import java.util.List;
 
 import org.bukkit.scheduler.BukkitScheduler;
 
-import com.devnecs.main.Base;
+import com.devnecs.main.Blaze;
 
 public class CooldownTick {
 	
 	private BukkitScheduler scheduler;
 
 	public CooldownTick() {
-		this.scheduler = Base.getInstance().getServer().getScheduler();
+		this.scheduler = Blaze.getInstance().getServer().getScheduler();
 	}
 
 	@SuppressWarnings("deprecation")
@@ -20,13 +20,13 @@ public class CooldownTick {
 
 		new Thread(() -> {
 
-	        scheduler.scheduleSyncRepeatingTask(Base.getInstance(), new Runnable() {
+	        scheduler.scheduleSyncRepeatingTask(Blaze.getInstance(), new Runnable() {
 	            @Override
 	            public void run() {
 	            	List<CooldownRunnable> remove = new ArrayList<CooldownRunnable>();
 	            	
 	            	
-	            	for(CooldownRunnable i : Base.getInstance().cooldownManager.getRunnables()) {
+	            	for(CooldownRunnable i : Blaze.getInstance().cooldownManager.getRunnables()) {
 	            		
 	            		i.setTimer((i.getTimer()-1));
 	            		
@@ -40,16 +40,16 @@ public class CooldownTick {
 	            	}
 	            	
 	            	for(CooldownRunnable i : remove) {
-	            		Base.getInstance().cooldownManager.getRunnables().remove(i);
+	            		Blaze.getInstance().cooldownManager.getRunnables().remove(i);
 	            	}
 	            }  	
 	            	
 	        }, 0L, 20L);
 	        
-	        scheduler.scheduleAsyncRepeatingTask(Base.getInstance(), new Runnable() {
+	        scheduler.scheduleAsyncRepeatingTask(Blaze.getInstance(), new Runnable() {
 	            @Override
 	            public void run() {
-	            	for(CooldownUser i : Base.getInstance().cooldownManager.getUsers()) {
+	            	for(CooldownUser i : Blaze.getInstance().cooldownManager.getUsers()) {
 	            		i.tick();
 	            	}
 	            }  	
@@ -61,7 +61,7 @@ public class CooldownTick {
 	}
 	
 	public void stop() {
-		this.scheduler.cancelTasks(Base.getInstance());
+		this.scheduler.cancelTasks(Blaze.getInstance());
 	}
 	
 }

@@ -15,7 +15,7 @@ import com.devnecs.GUI.GenerateItem;
 import com.devnecs.GUI.PagedItem;
 import com.devnecs.GUI.SpecialItem;
 import com.devnecs.config.Config;
-import com.devnecs.main.Base;
+import com.devnecs.main.Blaze;
 import com.devnecs.utils.ComponentBuilder;
 import com.devnecs.utils.MessageUtils;
 
@@ -43,7 +43,7 @@ public class ConfigSpecific extends ConfigGUI {
 	@Override
 	public String permission() {
 		// TODO Auto-generated method stub
-		return Base.getInstance().configManager.permissions.basic;
+		return Blaze.getInstance().configManager.permissions.basic;
 	}
 
 	@Override
@@ -97,7 +97,7 @@ public class ConfigSpecific extends ConfigGUI {
 		
 			
 			if(i.equals("identity")){
-				ItemStack object = new ItemStack(Material.valueOf(Base.getInstance().configManager.configs.Sections));
+				ItemStack object = new ItemStack(Material.valueOf(Blaze.getInstance().configManager.configs.Sections));
 				
 				ItemStack item = GenerateItem.getItem("&7" + i, object, ComponentBuilder.createLore("&cYou may not modify this section."));
 				
@@ -107,7 +107,7 @@ public class ConfigSpecific extends ConfigGUI {
 				
 			}else {
 				
-				ItemStack object = new ItemStack(Material.valueOf(Base.getInstance().configManager.configs.Sections));
+				ItemStack object = new ItemStack(Material.valueOf(Blaze.getInstance().configManager.configs.Sections));
 				
 				List<String> lore = new ArrayList<String>();
 				

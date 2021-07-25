@@ -1,8 +1,9 @@
-name: Base
+name: BlazeEconomy
 version: 1.0
 api-version: 1.16
-main: com.base.main.Base
+main: com.devnecs.main.Blaze
 author: Unfairbody96
+softdepend: [Vault]
 commands:
-  base:
+  blaze:
     description: Base main command

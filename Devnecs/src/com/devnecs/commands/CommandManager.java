@@ -15,7 +15,7 @@ import com.devnecs.config.Cooldown;
 import com.devnecs.config.Messages;
 import com.devnecs.config.Permissions;
 import com.devnecs.cooldown.CooldownUser;
-import com.devnecs.main.Base;
+import com.devnecs.main.Blaze;
 import com.devnecs.tags.TagFactory;
 import com.devnecs.utils.MessageUtils;
 import com.devnecs.utils.StringMinipulation;
@@ -23,22 +23,22 @@ import com.devnecs.utils.StringMinipulation;
 public class CommandManager implements CommandExecutor {
 
     private ArrayList<SubCommand> commands = new ArrayList<SubCommand>();
-    private Messages messages = Base.getInstance().configManager.messages;
-    private Permissions permissions = Base.getInstance().configManager.permissions;
-    private Cooldown cooldowns = Base.getInstance().configManager.cooldown;
+    private Messages messages = Blaze.getInstance().configManager.messages;
+    private Permissions permissions = Blaze.getInstance().configManager.permissions;
+    private Cooldown cooldowns = Blaze.getInstance().configManager.cooldown;
     
-    private Base plugin;
+    private Blaze plugin;
 
     //Sub Commands
-    public String main = "base";
+    public String main = "blaze";
     
-    public void setup(Base plugin) {
+    public void setup(Blaze plugin) {
     	this.setPlugin(plugin);
     	plugin.getCommand(main).setExecutor(this);
         commands.add(new Help());
         commands.add(new Reload());
         commands.add(new Configure());
-        commands.add(new Developer());
+        commands.add(new Balance());
         
         
         plugin.getCommand(main).setTabCompleter(new TabCompleter() {
@@ -108,7 +108,7 @@ public class CommandManager implements CommandExecutor {
 
             if (args.length == 0) {
             	
-            	CooldownUser user = Base.getInstance().cooldownManager.getUser(player.getUniqueId());
+            	CooldownUser user = Blaze.getInstance().cooldownManager.getUser(player.getUniqueId());
             	
             	SubCommand cmd = new Help();
             	
@@ -164,7 +164,7 @@ public class CommandManager implements CommandExecutor {
             
             try{
             	
-            	CooldownUser user = Base.getInstance().cooldownManager.getUser(player.getUniqueId());
+            	CooldownUser user = Blaze.getInstance().cooldownManager.getUser(player.getUniqueId());
             	
             	String key = args[0].trim();
 
@@ -247,12 +247,12 @@ public class CommandManager implements CommandExecutor {
     }
 
 
-	public Base getPlugin() {
+	public Blaze getPlugin() {
 		return plugin;
 	}
 
 
-	public void setPlugin(Base plugin) {
+	public void setPlugin(Blaze plugin) {
 		this.plugin = plugin;
 	}
 

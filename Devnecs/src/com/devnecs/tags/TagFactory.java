@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.bukkit.entity.Player;
 
-import com.devnecs.main.Base;
+import com.devnecs.main.Blaze;
 import com.devnecs.placeholder.time.TimeFormater;
 import com.devnecs.utils.MessageUtils;
 
@@ -57,7 +57,7 @@ public class TagFactory{
 		TimeFormater formater = new TimeFormater();
 		
 		parser = parser.replace("%cooldown%", formater.parse(this.cooldown)+"");
-		parser = parser.replace("%prefix%", Base.getInstance().configManager.messages.prefix);
+		parser = parser.replace("%prefix%", Blaze.getInstance().configManager.messages.prefix);
 		parser = parser.replace("%version%", "1.0");
 		parser = parser.replace("%user%", this.name);
 		
@@ -94,7 +94,7 @@ public class TagFactory{
 		TimeFormater formater = new TimeFormater();
 		
 		parser = parser.replace("%cooldown%", formater.parse(this.cooldown)+"");
-		parser = parser.replace("%prefix%", Base.getInstance().configManager.messages.prefix);
+		parser = parser.replace("%prefix%", Blaze.getInstance().configManager.messages.prefix);
 		parser = parser.replace("%version%", "1.0");
 		parser = parser.replace("%user%", this.name);
 		

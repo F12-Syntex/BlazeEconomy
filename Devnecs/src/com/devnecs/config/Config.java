@@ -8,7 +8,7 @@ import java.util.List;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import com.devnecs.main.Base;
+import com.devnecs.main.Blaze;
 
 public abstract class Config {
 
@@ -16,7 +16,7 @@ public abstract class Config {
 	protected double verison;
 	protected FileConfiguration configuration;
 	protected File config;
-	protected Base base;
+	protected Blaze base;
 	
 	public List<ConfigItem> items;
 	
@@ -25,7 +25,7 @@ public abstract class Config {
 	public Config(String name, double version) {
 		this.name = name;
 		this.verison = version;
-		this.base = Base.getInstance();
+		this.base = Blaze.getInstance();
 		this.items = new ArrayList<ConfigItem>();
 	}
 
@@ -103,11 +103,11 @@ public abstract class Config {
 		File depreciated = new File(this.base.getDataFolder(), "depreciated");
 		File backups = new File(depreciated, this.name);
 
-		Base.Log("Backing up...");
+		Blaze.Log("Backing up...");
 		
 		if(backups.mkdirs() || backups.exists()) {
 
-			Base.Log("created");
+			Blaze.Log("created");
 			
 			if(!this.getConfig().exists()) return null;
 			
@@ -120,15 +120,15 @@ public abstract class Config {
 				boolean success = this.getConfig().renameTo(backup);
 				
 				if(success) {
-					Base.Log("&a" + this.name + ".yml has been backed up!");	
+					Blaze.Log("&a" + this.name + ".yml has been backed up!");	
 				}else {
-					Base.Log("&cCouldnt backup!");
+					Blaze.Log("&cCouldnt backup!");
 				}
 			
 				return tempConfig;
 			
 		}else if(!backups.exists()) {
-			Base.Log("&cCouldnt create backup folder!");
+			Blaze.Log("&cCouldnt create backup folder!");
 		}
 		
 		return null;

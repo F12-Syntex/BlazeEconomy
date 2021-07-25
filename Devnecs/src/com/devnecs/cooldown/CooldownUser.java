@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import com.devnecs.main.Base;
+import com.devnecs.main.Blaze;
 
 public class CooldownUser {
 	
@@ -22,14 +22,14 @@ public class CooldownUser {
 		if(this.cooldown.containsKey(key)) {
 			return this.cooldown.get(key);
 		}else {
-			int timer = Base.getInstance().configManager.cooldown.getCooldown(key);
+			int timer = Blaze.getInstance().configManager.cooldown.getCooldown(key);
 			this.cooldown.put(key, timer);
 			return 0;			
 		}
 	}
 	
 	public void reset(String key) {
-		this.cooldown.put(key, Base.getInstance().configManager.cooldown.getCooldown(key));
+		this.cooldown.put(key, Blaze.getInstance().configManager.cooldown.getCooldown(key));
 	}
 	public void reset(String key, int seconds) {
 		this.cooldown.put(key, seconds);

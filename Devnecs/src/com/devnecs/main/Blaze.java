@@ -1,8 +1,11 @@
 package com.devnecs.main;
 import java.io.File;
+import java.util.List;
+import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -12,17 +15,24 @@ import com.devnecs.cooldown.CooldownManager;
 import com.devnecs.cooldown.CooldownTick;
 import com.devnecs.events.EventHandler;
 
+import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.economy.EconomyResponse;
 
-public class Base extends JavaPlugin implements Listener{
+
+public class Blaze extends JavaPlugin implements Listener{
 
 
-    public static Base instance;
+    public static Blaze instance;
     public com.devnecs.commands.CommandManager CommandManager;
     public ConfigManager configManager;
     public EventHandler eventHandler;
     public CooldownManager cooldownManager;
     public CooldownTick cooldownTick;
 	public File ParentFolder;
+	
+    public Economy econ = null;
+    
+    private static final Logger log = Logger.getLogger("Minecraft");
 	
 	@Override
 	public void onEnable(){
@@ -46,6 +56,14 @@ public class Base extends JavaPlugin implements Listener{
 	    this.CommandManager = new com.devnecs.commands.CommandManager();
 	    this.CommandManager.setup(this);
 
+	    /*
+        if (!setupEconomy() ) {
+            log.severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+        */
+	    
 	}
 	
 	
@@ -53,10 +71,11 @@ public class Base extends JavaPlugin implements Listener{
 	public void onDisable(){
 		this.eventHandler = null;
 		HandlerList.getRegisteredListeners(instance);
+		log.info(String.format("[%s] Disabled Version %s", getDescription().getName(), getDescription().getVersion()));
 	}
 	
 	public static void Log(String msg){
-		  Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7[&c" + Base.getInstance().getName() + "&7] &c(&7LOG&c): " + msg));
+		  Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7[&c" + Blaze.getInstance().getName() + "&7] &c(&7LOG&c): " + msg));
 	}
 	
 
@@ -66,9 +85,23 @@ public class Base extends JavaPlugin implements Listener{
 	}
 		
 
-	public static Base getInstance() {
+	public static Blaze getInstance() {
 		return instance;
 	}
-		
 	
+	/*
+  private boolean setupEconomy() {
+        if (getServer().getPluginManager().getPlugin("Vault") == null) {
+            return false;
+        }
+        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+        if (rsp == null) {
+            return false;
+        }
+        econ = rsp.getProvider();
+        
+        return econ != null;
+    }
+	 */
+
 }

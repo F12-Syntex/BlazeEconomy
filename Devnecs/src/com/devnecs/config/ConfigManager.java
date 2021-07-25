@@ -9,7 +9,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import com.devnecs.config.gui.GUIConfig;
-import com.devnecs.config.gui.GuiConfigHandler;
 
 public class ConfigManager {
 
@@ -20,9 +19,6 @@ public class ConfigManager {
     public Cooldown cooldown;
     public Configs configs;
     public Settings settings;
-    
-    public GuiConfigHandler guis;
-    
     
     public void setup(Plugin plugin) {
     	
@@ -43,14 +39,7 @@ public class ConfigManager {
     	this.configure(plugin, config);
     	
     	List<Config> data = new ArrayList<Config>();
-    	
-    	this.guis = new GuiConfigHandler();
-    	
-    	for(GUIConfig i : this.guis.interfaces) {
-    		this.config.add(i);
-    		data.add(i);
-    	}
-    	
+
     	this.configure(plugin, data);
 
     }

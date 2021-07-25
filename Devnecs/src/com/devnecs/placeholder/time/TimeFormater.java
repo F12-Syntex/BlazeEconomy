@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.devnecs.config.Cooldown;
-import com.devnecs.main.Base;
+import com.devnecs.main.Blaze;
 
 public class TimeFormater {
 
@@ -15,7 +15,7 @@ public class TimeFormater {
 	public String parse(int seconds) {
 		
 		StringBuilder builder = new StringBuilder();
-		Cooldown cooldown = Base.getInstance().configManager.cooldown;
+		Cooldown cooldown = Blaze.getInstance().configManager.cooldown;
 		
 		
 		List<TimeData> timeData = cooldown.getTimeData();

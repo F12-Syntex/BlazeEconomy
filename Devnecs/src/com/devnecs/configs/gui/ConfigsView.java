@@ -15,7 +15,7 @@ import com.devnecs.GUI.GenerateItem;
 import com.devnecs.GUI.PagedItem;
 import com.devnecs.GUI.SpecialItem;
 import com.devnecs.config.Config;
-import com.devnecs.main.Base;
+import com.devnecs.main.Blaze;
 
 public class ConfigsView extends ConfigGUI {
 
@@ -38,7 +38,7 @@ public class ConfigsView extends ConfigGUI {
 	@Override
 	public String permission() {
 		// TODO Auto-generated method stub
-		return Base.getInstance().configManager.permissions.basic;
+		return Blaze.getInstance().configManager.permissions.basic;
 	}
 
 	@Override
@@ -88,7 +88,7 @@ public class ConfigsView extends ConfigGUI {
 		
 		List<PagedItem> items = new ArrayList<PagedItem>();
 		
-		for(Config i : Base.getInstance().configManager.config) {
+		for(Config i : Blaze.getInstance().configManager.config) {
 		
 			List<String> lore = new ArrayList<String>();
 			
@@ -98,7 +98,7 @@ public class ConfigsView extends ConfigGUI {
 			}
 			
 			
-			ItemStack object = new ItemStack(Material.valueOf(Base.getInstance().configManager.configs.Sections));
+			ItemStack object = new ItemStack(Material.valueOf(Blaze.getInstance().configManager.configs.Sections));
 			
 			ItemStack item = GenerateItem.getItem("&7" + i.getName(), object, lore);
 			
