@@ -44,7 +44,11 @@ public class Messages extends Config{
 		
 		//plugin_reload
 		this.updateMessages("plugin_reload", "%prefix% &creloaded!");
-		this.updateMessages("user_balance", "%prefix% &cyou have &a%balance%&c$");
+		this.updateMessages("user_balance", "%prefix% &cyou have &7%balance%&c$");
+		this.updateMessages("target_balance", "%prefix% &c%user% has &7%balance%&c$");
+		
+		this.updateMessages("target_give", "%prefix% &c%user% has recieved &7%balance%&c$");
+		this.updateMessages("target_take", "%prefix% &c%user% has lost &7%balance%&c$");
 
 		
 		this.items.add(new ConfigItem("Messages.contents", messages));

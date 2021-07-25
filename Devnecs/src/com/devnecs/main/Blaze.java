@@ -1,11 +1,9 @@
 package com.devnecs.main;
 import java.io.File;
-import java.util.List;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,10 +11,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.devnecs.config.ConfigManager;
 import com.devnecs.cooldown.CooldownManager;
 import com.devnecs.cooldown.CooldownTick;
+import com.devnecs.economy.EconomyHandler;
 import com.devnecs.events.EventHandler;
 
 import net.milkbowl.vault.economy.Economy;
-import net.milkbowl.vault.economy.EconomyResponse;
 
 
 public class Blaze extends JavaPlugin implements Listener{
@@ -34,6 +32,8 @@ public class Blaze extends JavaPlugin implements Listener{
     
     private static final Logger log = Logger.getLogger("Minecraft");
 	
+    public EconomyHandler economyHandler;
+    
 	@Override
 	public void onEnable(){
 		
@@ -56,6 +56,9 @@ public class Blaze extends JavaPlugin implements Listener{
 	    this.CommandManager = new com.devnecs.commands.CommandManager();
 	    this.CommandManager.setup(this);
 
+	    this.economyHandler = new EconomyHandler();
+	    this.economyHandler.loadEconomy();
+	    
 	    /*
         if (!setupEconomy() ) {
             log.severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
