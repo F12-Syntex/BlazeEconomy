@@ -110,5 +110,10 @@ public class Cooldown extends Config{
 		return data;
 	}
 
+	@Override
+	public String folder() {
+		// TODO Auto-generated method stub
+		return "";
+	}
 	
 }

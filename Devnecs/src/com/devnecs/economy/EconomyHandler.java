@@ -4,67 +4,57 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.bukkit.OfflinePlayer;
+
+import com.devnecs.main.Blaze;
+
 public class EconomyHandler {
 
-	private List<Account> balance;
+	private List<Account> accounts;
 	
 	public EconomyHandler() {}
 	
 	public void loadEconomy() {
-		this.setBalance(new ArrayList<Account>());
+		this.setBalance(Blaze.getInstance().configManager.storage.accounts);
+	}
+	
+	public List<Account> getData(){
+		return this.accounts;
 	}
 
 	public List<Account> getBalance() {
-		return balance;
+		return accounts;
 	}
 
 	public void setBalance(List<Account> balance) {
-		this.balance = balance;
+		this.accounts = balance;
 	}
 	
 	public boolean hasAccount(UUID account) {
-		return balance.stream().filter(i -> i.getKey().compareTo(account) == 0).count() > 0;
+		
+		for(Account data : this.accounts) {
+			if(data.getKey().compareTo(account) == 0) return true;
+		}
+		
+		return false;
 	}
 	
 	public void registerUser(UUID user) {
-		Account account = new Account(user, 0);
-		this.balance.add(account);
+		Account account = new Account(user, 0, new ArrayList<Transaction>());
+		this.accounts.add(account);
 	}
 	
-	public double getAmount(UUID user) {
+	public Account getAccount(OfflinePlayer user) {
 		
-		if(!hasAccount(user)) {
-			this.registerUser(user);
+		if(!hasAccount(user.getUniqueId())) {
+			this.registerUser(user.getUniqueId());
 		}
 		
-		return balance.stream().filter(i -> i.getKey().compareTo(user) == 0).findFirst().get().getBalance();
-	}
-	
-	public void addAmount(UUID user, double amount) {
-	
-		if(!hasAccount(user)) {
-			this.registerUser(user);
+		for(Account data : this.accounts) {
+			if(data.getKey().compareTo(user.getUniqueId()) == 0) return data;
 		}
 		
-		balance.stream().filter(i -> i.getKey().compareTo(user) == 0).findFirst().get().add(amount);
-	}
-	
-	public void takeAmount(UUID user, double amount) {
-		
-		if(!hasAccount(user)) {
-			this.registerUser(user);
-		}
-		
-		balance.stream().filter(i -> i.getKey().compareTo(user) == 0).findFirst().get().take(amount);
-	}
-	
-	public void setAmount(UUID user, double amount) {
-		
-		if(!hasAccount(user)) {
-			this.registerUser(user);
-		}
-		
-		balance.stream().filter(i -> i.getKey().compareTo(user) == 0).findFirst().get().set(amount);
+		return null;
 	}
 	
 }

@@ -19,6 +19,7 @@ public class ConfigManager {
     public Cooldown cooldown;
     public Configs configs;
     public Settings settings;
+    public Storage storage;
     
     public void setup(Plugin plugin) {
     	
@@ -27,6 +28,7 @@ public class ConfigManager {
     	this.cooldown = new Cooldown("cooldown", 1.4);
     	this.configs = new Configs("configs", 1.4);
     	this.settings = new Settings("settings", 1.4);
+    	this.storage = new Storage("storage-yaml", 1.0);
     	
     	this.config.clear();
 
@@ -35,6 +37,8 @@ public class ConfigManager {
     	this.config.add(cooldown);
     	this.config.add(configs);
     	this.config.add(settings);
+    	this.config.add(configs);
+    	this.config.add(storage);
     	
     	this.configure(plugin, config);
     	
@@ -63,10 +67,19 @@ public class ConfigManager {
 	    			new File(old, config.get(i).getName() + ".yml").delete();
 	    			file = ((GUIConfig)config.get(i)).create();
 	    		}else {
-	    			new File(plugin.getDataFolder(), config.get(i).getName() + ".yml").delete();
-		    		plugin.saveResource(config.get(i).getName() + ".yml", false);
+	    			
+	    			if(config.get(i).folder().isEmpty()) {
+		    			new File(plugin.getDataFolder(), config.get(i).getName() + ".yml").delete();
+			    		plugin.saveResource(config.get(i).getName() + ".yml", false);	
+	    			}else {
+	    				File folder = new File(plugin.getDataFolder(), config.get(i).folder());
+		    			File path = new File(folder, config.get(i).getName() + ".yml");
+		    			final String url = path.getAbsolutePath();
+		    			path.delete();
+			    		plugin.saveResource(url, false);
+	    			}
+	    			
 	    		}
-
 	    	
        			if(file != null) {
    					final FileConfiguration oldConfig = YamlConfiguration.loadConfiguration(file);

@@ -39,6 +39,12 @@ public class Configs extends Config{
 		this.Lists = this.getConfiguration().getString("Configs.Values.Lists");
 	}
 
+	@Override
+	public String folder() {
+		// TODO Auto-generated method stub
+		return "";
+	}
+
 
 	
 }

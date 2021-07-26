@@ -33,6 +33,8 @@ public abstract class Config {
 		return name;
 	}
 
+	public abstract String folder();
+	
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -54,7 +56,16 @@ public abstract class Config {
 	}
 	
 	public void setup() {
-		config = new File(this.base.getDataFolder().getAbsolutePath(), this.name + ".yml");	
+		
+		if(this.folder().isEmpty()) {
+			config = new File(this.base.getDataFolder().getAbsolutePath(), this.name + ".yml");	
+		}else {
+			File folder = new File(this.base.getDataFolder().getAbsolutePath(), this.folder());
+			config = new File(folder, this.name + ".yml");	
+		}
+		
+		
+		
 		
 		this.configuration = YamlConfiguration.loadConfiguration(config);
 		

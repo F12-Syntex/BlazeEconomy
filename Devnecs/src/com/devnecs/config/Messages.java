@@ -135,5 +135,11 @@ public class Messages extends Config{
 		return MessageUtils.translateAlternateColorCodes(data);
 	}
 
+	@Override
+	public String folder() {
+		// TODO Auto-generated method stub
+		return "";
+	}
+	
 	
 }

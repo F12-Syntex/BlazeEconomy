@@ -34,6 +34,8 @@ public class Take extends SubCommand {
     	    	
     	    	String message = Blaze.getInstance().configManager.messages.getMessage("target_take");
     	    	
+    	    	Blaze.getInstance().economyHandler.getAccount(user).take(player.getUniqueId(), amount);
+    	    	
     	    	message = message.replace("%balance%", amount+"");
     	    	message = message.replace("%user%", name+"");
     	    	

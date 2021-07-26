@@ -58,6 +58,11 @@ public class Permissions extends Config{
 		this.take = this.getConfiguration().getString("Permissions.administration.take");
 	}
 
+	@Override
+	public String folder() {
+		// TODO Auto-generated method stub
+		return "";
+	}
 
 	
 }

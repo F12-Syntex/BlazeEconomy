@@ -1,10 +1,6 @@
 
 package com.devnecs.commands;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -19,9 +15,22 @@ public class Balance extends SubCommand {
     public void onCommand(Player player, String[] args) {
 
     	if(args.length == 1) {
-        	double balance = Blaze.getInstance().economyHandler.getAmount(player.getUniqueId());
-    		Blaze.getInstance().configManager.messages.send(player, "user_balance", "%balance%", (Math.round(balance*10.0)/10.0)+"");    
-    		return;
+    		
+        	for(OfflinePlayer user : Bukkit.getOfflinePlayers()) {
+        		if(user.getName().equals(player.getName())) {
+        	
+        	    	double balance = Blaze.getInstance().economyHandler.getAccount(user).getBalance();
+        	    
+        	    	String message = Blaze.getInstance().configManager.messages.getMessage("user_balance");
+        	    	
+        	    	message = message.replace("%balance%", balance+"");
+            		
+        			MessageUtils.sendRawMessage(player, message);
+
+                	return;
+        			
+        		}
+        	}
         }
     	
     	String name = "";
@@ -33,18 +42,13 @@ public class Balance extends SubCommand {
     	name = name.trim();
     	
     	for(OfflinePlayer user : Bukkit.getOfflinePlayers()) {
-    		if(user.getName().equalsIgnoreCase(name)) {
-
-    	    	double balance = Blaze.getInstance().economyHandler.getAmount(user.getUniqueId());
-    	    	
-    	    	Map<String, String> replace = new HashMap<String, String>();
-    	    	replace.put("%balance%", balance+"");
-    	    	replace.put("%user%", name+"");
-    	    	
+    		if(user.getName().equals(name)) {
+    			
+    	    	double balance = Blaze.getInstance().economyHandler.getAccount(user).getBalance();
     	    	String message = Blaze.getInstance().configManager.messages.getMessage("target_balance");
     	    	
     	    	message = message.replace("%balance%", balance+"");
-    	    	message = message.replace("%user%", name+"");
+    	    	message = message.replace("%user%", user.getName()+"");
     	    	
     			MessageUtils.sendRawMessage(player, message); 
     			
@@ -83,13 +87,9 @@ public class Balance extends SubCommand {
 	@Override
 	public AutoComplete autoComplete(CommandSender sender) {
 		AutoComplete tabCompleter = new AutoComplete();
-		
-		List<SubCommand> commands = Blaze.getInstance().CommandManager.getCommands();
-		
-		for(SubCommand i : commands) {
-			tabCompleter.createEntry(i.name());
+		for(OfflinePlayer player : Bukkit.getOfflinePlayers()) {
+			tabCompleter.createEntry(player.getName());
 		}
-		
 		return tabCompleter;
 	}
 	

@@ -20,8 +20,6 @@ public class Give extends SubCommand {
     		return;
         }
     	
-    	
-    	
     	String name = args[1];
     	 
     	if(!Numbers.isNumber(args[2])) {
@@ -38,6 +36,8 @@ public class Give extends SubCommand {
     	    	
     	    	message = message.replace("%balance%", amount+"");
     	    	message = message.replace("%user%", name+"");
+    	    	
+    	    	Blaze.getInstance().economyHandler.getAccount(user).add(player.getUniqueId(), amount);
     	    	
     			MessageUtils.sendRawMessage(player, message);   
     			return;
@@ -69,7 +69,7 @@ public class Give extends SubCommand {
 
 	@Override
 	public String permission() {
-		return  Blaze.getInstance().configManager.permissions.give;
+		return Blaze.getInstance().configManager.permissions.give;
 	}
 	
 	@Override

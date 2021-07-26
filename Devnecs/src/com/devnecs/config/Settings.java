@@ -22,6 +22,10 @@ public class Settings extends Config{
 		this.storage = Storage.valueOf(this.getConfiguration().getString("Settings.storage.type"));
 	}
 
-
+	@Override
+	public String folder() {
+		// TODO Auto-generated method stub
+		return "";
+	}
 	
 }

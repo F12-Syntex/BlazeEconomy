@@ -14,9 +14,6 @@ import com.devnecs.cooldown.CooldownTick;
 import com.devnecs.economy.EconomyHandler;
 import com.devnecs.events.EventHandler;
 
-import net.milkbowl.vault.economy.Economy;
-
-
 public class Blaze extends JavaPlugin implements Listener{
 
 
@@ -28,8 +25,6 @@ public class Blaze extends JavaPlugin implements Listener{
     public CooldownTick cooldownTick;
 	public File ParentFolder;
 	
-    public Economy econ = null;
-    
     private static final Logger log = Logger.getLogger("Minecraft");
 	
     public EconomyHandler economyHandler;
@@ -58,14 +53,7 @@ public class Blaze extends JavaPlugin implements Listener{
 
 	    this.economyHandler = new EconomyHandler();
 	    this.economyHandler.loadEconomy();
-	    
-	    /*
-        if (!setupEconomy() ) {
-            log.severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
-            getServer().getPluginManager().disablePlugin(this);
-            return;
-        }
-        */
+
 	    
 	}
 	
