@@ -19,7 +19,8 @@ public class ConfigManager {
     public Cooldown cooldown;
     public Configs configs;
     public Settings settings;
-    public Storage storage;
+    public Storage yaml_storage;
+    public Storage mysql_storage;
     
     public void setup(Plugin plugin) {
     	
@@ -28,7 +29,8 @@ public class ConfigManager {
     	this.cooldown = new Cooldown("cooldown", 1.4);
     	this.configs = new Configs("configs", 1.4);
     	this.settings = new Settings("settings", 1.4);
-    	this.storage = new Storage("storage-yaml", 1.0);
+    	this.yaml_storage = new Storage("storage-yaml", 1.0);
+    	this.mysql_storage = new Storage("storage-mysql", 1.0);
     	
     	this.config.clear();
 
@@ -38,7 +40,8 @@ public class ConfigManager {
     	this.config.add(configs);
     	this.config.add(settings);
     	this.config.add(configs);
-    	this.config.add(storage);
+    	this.config.add(yaml_storage);
+    	this.config.add(mysql_storage);
     	
     	this.configure(plugin, config);
     	

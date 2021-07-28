@@ -15,8 +15,8 @@ import com.devnecs.utils.MappyObject;
 public class Cooldown extends Config{
 
 	public List<HashMap<String, Integer>> commands;
-	public String coding = "&a%time%&7(&6%shortname%&7)"; 
-	public int complexity = 1;
+	public String coding = "&a%time%&7(&6%shortname%&7) "; 
+	public int complexity = 50;
 	public String message = "%prefix% &cSorry, please wait %cooldown%&7 &cto use that command again!";
 	
 	

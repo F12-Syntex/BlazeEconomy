@@ -13,11 +13,11 @@ import com.devnecs.economy.Transaction;
 import com.devnecs.economy.TransactionType;
 import com.devnecs.main.Blaze;
 
-public class Storage extends Config{
+public class MySqlStorage extends Config{
 
 	public com.devnecs.storage.Storage storage = com.devnecs.storage.Storage.YAML;
 	
-	public Storage(String name, double version) {
+	public MySqlStorage(String name, double version) {
 		super(name, version);
 		this.items.add(new ConfigItem("Settings.storage.type", this.storage.name()));
 	}

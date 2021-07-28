@@ -13,6 +13,9 @@ public class Permissions extends Config{
 	public String set = "blaze.admin.set";
 	
 	public String balance = "bukkit.command.help";
+	public String baltop = "bukkit.command.help";
+	
+	
 	public String give = "blaze.admin.give";
 	public String take = "blaze.admin.take";
 	
@@ -23,6 +26,7 @@ public class Permissions extends Config{
 		this.items.add(new ConfigItem("Permissions.everyone.shop", shop));
 		this.items.add(new ConfigItem("Permissions.everyone.inventory", inventory));
 		this.items.add(new ConfigItem("Permissions.everyone.balance", balance));
+		this.items.add(new ConfigItem("Permissions.everyone.baltop", baltop));
 		
 		
 		this.items.add(new ConfigItem("Permissions.administration.admin", admin));
@@ -54,6 +58,7 @@ public class Permissions extends Config{
 		this.set = this.getConfiguration().getString("Permissions.administration.set");
 		
 		this.balance = this.getConfiguration().getString("Permissions.everyone.balance");
+		this.baltop = this.getConfiguration().getString("Permissions.everyone.baltop");
 		this.give = this.getConfiguration().getString("Permissions.administration.give");
 		this.take = this.getConfiguration().getString("Permissions.administration.take");
 	}

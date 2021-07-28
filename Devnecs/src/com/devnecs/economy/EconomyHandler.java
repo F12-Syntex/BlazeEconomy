@@ -1,6 +1,8 @@
 package com.devnecs.economy;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,11 +17,24 @@ public class EconomyHandler {
 	public EconomyHandler() {}
 	
 	public void loadEconomy() {
-		this.setBalance(Blaze.getInstance().configManager.storage.accounts);
+		this.setBalance(Blaze.getInstance().configManager.yaml_storage.accounts);
 	}
 	
 	public List<Account> getData(){
 		return this.accounts;
+	}
+	
+	public List<Account> sortedData(int size){
+		final List<Account> data = this.getData();
+		Collections.sort(data, new Comparator<Account>(){
+		   public int compare(Account o1, Account o2){
+		      return o1.getBalance() > o2.getBalance() ? -1 : 1;
+		   }
+		});
+		
+		if(size < 0 || size > data.size()) return data;
+		
+		return data.subList(0, size);
 	}
 
 	public List<Account> getBalance() {
