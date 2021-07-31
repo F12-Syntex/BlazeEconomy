@@ -13,6 +13,7 @@ import com.devnecs.cooldown.CooldownManager;
 import com.devnecs.cooldown.CooldownTick;
 import com.devnecs.economy.EconomyHandler;
 import com.devnecs.events.EventHandler;
+import com.devnecs.storage.StorageHandler;
 
 public class Blaze extends JavaPlugin implements Listener{
 
@@ -24,6 +25,8 @@ public class Blaze extends JavaPlugin implements Listener{
     public CooldownManager cooldownManager;
     public CooldownTick cooldownTick;
 	public File ParentFolder;
+	
+	public StorageHandler handler;
 	
     private static final Logger log = Logger.getLogger("Minecraft");
 	
@@ -51,10 +54,11 @@ public class Blaze extends JavaPlugin implements Listener{
 	    this.CommandManager = new com.devnecs.commands.CommandManager();
 	    this.CommandManager.setup(this);
 
+	    this.handler = new StorageHandler();
+	    
 	    this.economyHandler = new EconomyHandler();
 	    this.economyHandler.loadEconomy();
-
-	    
+    
 	}
 	
 	
@@ -63,6 +67,8 @@ public class Blaze extends JavaPlugin implements Listener{
 		this.eventHandler = null;
 		HandlerList.getRegisteredListeners(instance);
 		log.info(String.format("[%s] Disabled Version %s", getDescription().getName(), getDescription().getVersion()));
+		this.handler.update();
+		this.handler.close();
 	}
 	
 	public static void Log(String msg){

@@ -1,23 +1,70 @@
 package com.devnecs.economy;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
+import com.devnecs.database.MySql;
+import com.devnecs.database.Sqlite;
 import com.devnecs.main.Blaze;
+import com.devnecs.storage.Storage;
 
 public class EconomyHandler {
 
 	private List<Account> accounts;
 	
 	public EconomyHandler() {}
-	
+
 	public void loadEconomy() {
-		this.setBalance(Blaze.getInstance().configManager.yaml_storage.accounts);
+
+		if(Blaze.getInstance().configManager.settings.storage == Storage.YAML) {
+			this.setBalance(Blaze.getInstance().configManager.yaml_storage.accounts);	
+			Bukkit.getLogger().info("Loaded YAML storage.");
+			Bukkit.getLogger().info("Number of accounts loaded: " + this.getBalance().size());
+		}
+		if(Blaze.getInstance().configManager.settings.storage == Storage.MYSQL) {
+			
+			MySql mySql = Blaze.getInstance().handler.mysql;
+			
+			try {
+				mySql.connect();
+				this.setBalance(mySql.getAccounts());
+				Bukkit.getLogger().info("Connected to MySQL data base.");
+				Bukkit.getLogger().info("Number of accounts loaded: " + this.getBalance().size());
+				
+			} catch (SQLException e) {
+				Bukkit.getLogger().info("Cannot connect to database, defaulting to yaml.");
+				this.setBalance(Blaze.getInstance().configManager.yaml_storage.accounts);	
+			}
+				
+		
+		}
+		
+		if(Blaze.getInstance().configManager.settings.storage == Storage.SQLITE) {
+		
+			Sqlite mySql = Blaze.getInstance().handler.sqlite;
+			
+			try {
+				mySql.connect();
+				this.setBalance(mySql.getAccounts());
+				Bukkit.getLogger().info("Connected to SQLite data base.");
+				Bukkit.getLogger().info("Number of accounts loaded: " + this.getBalance().size());
+				
+			} catch (SQLException e) {
+				Bukkit.getLogger().info("Cannot connect to database, defaulting to yaml.");
+				this.setBalance(Blaze.getInstance().configManager.yaml_storage.accounts);	
+			}
+				
+			
+			
+		}
+		
 	}
 	
 	public List<Account> getData(){

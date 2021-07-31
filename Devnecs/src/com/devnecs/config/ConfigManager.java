@@ -1,6 +1,7 @@
 package com.devnecs.config;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import com.devnecs.config.gui.GUIConfig;
+import com.devnecs.main.Blaze;
 
 public class ConfigManager {
 
@@ -20,7 +22,8 @@ public class ConfigManager {
     public Configs configs;
     public Settings settings;
     public Storage yaml_storage;
-    public Storage mysql_storage;
+    public MySqlStorage mysql_storage;
+    public File sqlite_storage;
     
     public void setup(Plugin plugin) {
     	
@@ -30,7 +33,7 @@ public class ConfigManager {
     	this.configs = new Configs("configs", 1.4);
     	this.settings = new Settings("settings", 1.4);
     	this.yaml_storage = new Storage("storage-yaml", 1.0);
-    	this.mysql_storage = new Storage("storage-mysql", 1.0);
+    	this.mysql_storage = new MySqlStorage("storage-mysql", 1.0);
     	
     	this.config.clear();
 
@@ -48,6 +51,8 @@ public class ConfigManager {
     	List<Config> data = new ArrayList<Config>();
 
     	this.configure(plugin, data);
+    	
+    	this.createDatabase();
 
     }
 
@@ -58,25 +63,25 @@ public class ConfigManager {
     		
     		config.get(i).setup();
     		
-    		if(config.get(i).getConfiguration().contains("identity.version") && (config.get(i).getConfiguration().getDouble("identity.version") == config.get(i).getVerison())) {
+    		if(config.get(i).extention.equalsIgnoreCase("yml") && config.get(i).getConfiguration().contains("identity.version") && (config.get(i).getConfiguration().getDouble("identity.version") == config.get(i).getVerison())) {
     			config.get(i).initialize();
         		continue;
     		}
-    		
+
 	    		File file = config.get(i).backup();
 	    	
 	    		if(config.get(i) instanceof GUIConfig) {
 	    			File old = new File(plugin.getDataFolder(), "gui");
-	    			new File(old, config.get(i).getName() + ".yml").delete();
+	    			new File(old, config.get(i).getName() + "." + config.get(i).extention).delete();
 	    			file = ((GUIConfig)config.get(i)).create();
 	    		}else {
 	    			
 	    			if(config.get(i).folder().isEmpty()) {
-		    			new File(plugin.getDataFolder(), config.get(i).getName() + ".yml").delete();
-			    		plugin.saveResource(config.get(i).getName() + ".yml", false);	
+		    			new File(plugin.getDataFolder(), config.get(i).getName() + "." + config.get(i).extention).delete();
+			    		plugin.saveResource(config.get(i).getName() + "." + config.get(i).extention, false);	
 	    			}else {
 	    				File folder = new File(plugin.getDataFolder(), config.get(i).folder());
-		    			File path = new File(folder, config.get(i).getName() + ".yml");
+		    			File path = new File(folder, config.get(i).getName() + "." + config.get(i).extention);
 		    			final String url = path.getAbsolutePath();
 		    			path.delete();
 			    		plugin.saveResource(url, false);
@@ -106,6 +111,25 @@ public class ConfigManager {
 
     	}
     }
+    
+    public void createDatabase() {
+
+		File folder = new File(Blaze.getInstance().getDataFolder().getAbsolutePath(), "storage");
+		File config = new File(folder, "storage-sqlite.db");	
+		
+		if(!config.exists()) {
+			try {
+				config.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		this.sqlite_storage = config;
+		
+	
+	}
     
     
     public Config getConfig(Configuration configuration) {

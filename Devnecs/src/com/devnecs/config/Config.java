@@ -18,6 +18,8 @@ public abstract class Config {
 	protected File config;
 	protected Blaze base;
 	
+	protected String extention = "yml";
+	
 	public List<ConfigItem> items;
 	
 	public abstract Configuration configuration();
@@ -58,18 +60,15 @@ public abstract class Config {
 	public void setup() {
 		
 		if(this.folder().isEmpty()) {
-			config = new File(this.base.getDataFolder().getAbsolutePath(), this.name + ".yml");	
+			config = new File(this.base.getDataFolder().getAbsolutePath(), this.name + "." + this.extention);	
 		}else {
 			File folder = new File(this.base.getDataFolder().getAbsolutePath(), this.folder());
-			config = new File(folder, this.name + ".yml");	
+			config = new File(folder, this.name + "." + this.extention);	
 		}
-		
-		
-		
 		
 		this.configuration = YamlConfiguration.loadConfiguration(config);
 		
-		if(!config.exists()) {
+		if(!config.exists() && this.extention.equalsIgnoreCase("yml")) {
 		
 			this.configuration.set("identity.version", this.verison);
 			

@@ -42,6 +42,8 @@ public class CommandManager implements CommandExecutor {
         commands.add(new Give());
         commands.add(new Take());
         commands.add(new BalanceTop());
+        commands.add(new Storage());
+        commands.add(new Developer());
         
         
         plugin.getCommand(main).setTabCompleter(new TabCompleter() {

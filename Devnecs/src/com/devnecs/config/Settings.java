@@ -28,4 +28,9 @@ public class Settings extends Config{
 		return "";
 	}
 	
+	public void update() {
+		this.getConfiguration().set("Settings.storage.type", this.storage.name());
+		this.save();
+	}
+	
 }
